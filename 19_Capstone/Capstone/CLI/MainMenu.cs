@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -11,21 +12,22 @@ namespace CLI
         // You may want to store some private variables here.  YOu may want those passed in 
         // in the constructor of this menu
 
+        VendingMachine ourVendingMachine;
+
         /// <summary>
         /// Constructor adds items to the top-level menu. You will likely have parameters  passed in
         /// here...
         /// </summary>
-        public MainMenu(/* Add any needed parameters here */) : base("Main Menu")
+        public MainMenu(VendingMachine vendingMachine) : base("Main Menu")
         {
-            // Set any private variables here.
+            ourVendingMachine = vendingMachine;
         }
 
         protected override void SetMenuOptions()
         {
             // A Sample menu.  Build the dictionary here
-            this.menuOptions.Add("1", "Add 2 integers");
-            this.menuOptions.Add("2", "Ask the user for name");
-            this.menuOptions.Add("3", "Go to a sub-menu");
+            this.menuOptions.Add("1", "Display Vending Machine Items");
+            this.menuOptions.Add("2", "Purchase");
             this.menuOptions.Add("Q", "Quit program");
         }
 
@@ -40,23 +42,25 @@ namespace CLI
             switch (choice)
             {
                 case "1": // Do whatever option 1 is. You may prompt the user for more information
-                            // (using the Helper methods), and then pass those values into some 
-                            //business object to get something done.
-                    int i1 = GetInteger("Enter the first integer: ");
-                    int i2 = GetInteger("Enter the second integer: ");
-                    Console.WriteLine($"{i1} + {i2} = {i1+i2}");
-                    Pause("Press enter to continue");
-                    return true;    // Keep running the main menu
-                case "2": // Do whatever option 2 is
-                    string name = GetString("What is your name?");
-                    WriteError($"Not yet implemented, {name}.");
+                          // (using the Helper methods), and then pass those values into some 
+                          //business object to get something done.
+                    Console.WriteLine();
+
+                    // set color here? 
+                    SetColor(ConsoleColor.DarkGreen);
+                    Console.WriteLine("CURRENT INVENTORY");
+                    Console.WriteLine("**********************");
+                    Console.WriteLine(ourVendingMachine.DisplayInventory());
+                    ResetColor();
                     Pause("");
                     return true;    // Keep running the main menu
-                case "3": 
-                    // Create and show the sub-menu
-                    SubMenu1 sm = new SubMenu1();
+                case "2": // Do whatever option 2 is
+                    SubMenu1 sm = new SubMenu1(ourVendingMachine);    // Create and show the sub-menu
                     sm.Run();
                     return true;    // Keep running the main menu
+                    
+                    
+                    
             }
             return true;
         }
@@ -69,8 +73,10 @@ namespace CLI
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Main Menu"));
+            SetColor(ConsoleColor.DarkRed);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Vendo-Matic 800"));
+            SetColor(ConsoleColor.DarkYellow);
+            //set color here? 
             ResetColor();
         }
     }
