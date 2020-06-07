@@ -14,7 +14,6 @@ namespace Capstone.Models
         public VendingMachine()
         {
             
-
         }
         
         public void LoadInventory(string filename)
@@ -27,7 +26,7 @@ namespace Capstone.Models
                 {
                     string line = sw.ReadLine();
 
-                    string[] productFields = line.Split("|");
+                    string[] productFields = line.Split("|"); 
 
                     Product product = new Product(productFields[1], decimal.Parse(productFields[2]), productFields[3], 5);
                     string slotID = productFields[0];
@@ -49,50 +48,48 @@ namespace Capstone.Models
             }
             return inventory;
         }
-        
-        
-        public string SelectProduct(string slotID)             //this needs to connect with the money handler
+
+
+      
+
+        public string SelectProduct(string slotID)             
         {
-            if (productInventory.ContainsKey(slotID))
+            if (!productInventory.ContainsKey(slotID))
             {
-                if(productInventory[slotID].Quantity > 0)
-                {
-                    if (CurrentBalance >= productInventory[slotID].Price)     //if balance >= price, go ahead and purchase
-                    {
-                        // decrement quantity
-                        productInventory[slotID].Quantity--;
-
-                        //subtract price from current balance
-                        decimal startingBalance = CurrentBalance;
-                        CurrentBalance -= productInventory[slotID].Price;
-
-                        //Log the transaction
-                        LogHistory($"{productInventory[slotID].Name} {slotID}", startingBalance, CurrentBalance);
-
-                        return $"You purchased {productInventory[slotID].Name} for ${productInventory[slotID].Price}.\nYou have ${CurrentBalance} remaining.\n" +
-                            $"{productInventory[slotID].GetSound(productInventory[slotID].Type)}";
-                    }
-                    else    // not enough money 
-                    {
-                        return $"Sorry, please feed in more money!";
-                    }
-                }
-                else  //Quantity == 0
-                {
-                    return $"Sorry, SOLD OUT";
-                }
+                return "Sorry, invalid slot ID!";
             }
-            else  //Invalid SlotID
+
+            else if (productInventory[slotID].Quantity == 0)
             {
-                return $"Sorry, invalid slot ID!";
+                return "Sorry, SOLD OUT";
             }
-            
+
+            else if (CurrentBalance < productInventory[slotID].Price)
+            {
+                return "Sorry, please feed in more money!";
+            }
+
+            else
+            {
+                //decrement quantity
+                productInventory[slotID].Quantity--;
+
+                //subtract price from current balance
+                decimal startingBalance = CurrentBalance;
+                CurrentBalance -= productInventory[slotID].Price;
+
+                //Log the transaction
+                LogHistory($"{productInventory[slotID].Name} {slotID}", startingBalance, CurrentBalance);
+
+                //You purchase {name} for {price}. You have {current balance} remaining. **GetSound(Type)**
+                return $"You purchased {productInventory[slotID].Name} for ${productInventory[slotID].Price}.\nYou have ${CurrentBalance} remaining.\n" +
+                    $"{productInventory[slotID].GetSound(productInventory[slotID].Type)}";
+            }
+
 
         }
 
-        
 
-       
 
 
 

@@ -50,7 +50,7 @@ namespace Capstone.Models
             }
             CurrentBalance = remainingBalance;
             LogHistory("GIVE CHANGE", startingBalance, CurrentBalance);
-            return $"Here's your change:\n{quarters} quarters\n{dimes} dimes\n{nickels} nickels";
+            return $"Here's your change:\n{quarters} quarter(s)\n{dimes} dime(s)\n{nickels} nickel(s)";
             
         }
         

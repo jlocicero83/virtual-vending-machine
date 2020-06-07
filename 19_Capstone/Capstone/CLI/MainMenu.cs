@@ -74,7 +74,7 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.DarkRed);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Vendo-Matic 800"));
+            Console.WriteLine(Figgle.FiggleFonts.Varsity.Render("Vendo-Matic 800"));
             SetColor(ConsoleColor.DarkYellow);
             //set color here? 
             ResetColor();
