@@ -7,18 +7,18 @@ namespace Capstone.Models
 {
     public class MoneyHandler
     {
-        public decimal CurrentBalance { get; set; } = 0.00M;
+        public decimal CurrentBalance { get; protected set; } = 0.00M;
 
         //methods
         public decimal FeedMoney(int dollarAmount)
         {
-            CurrentBalance += dollarAmount;            //cast to decimal?
+            CurrentBalance += dollarAmount;            
             LogHistory("FEED MONEY", dollarAmount, CurrentBalance);
             return CurrentBalance;
         }
 
 
-        public void LogHistory(string taskCompleted, decimal value1, decimal value2)      //pass in name of task completed (concat. into log string)
+        public void LogHistory(string taskCompleted, decimal value1, decimal value2)      //pass in name of task completed (concat. into log)
         {
             using (StreamWriter sw = new StreamWriter((@"..\..\..\..\Log.txt"), true))        //same directory as solution 
             {
@@ -27,7 +27,7 @@ namespace Capstone.Models
              }
         }
 
-        //GET CHANGE METHOD
+        
         public string GetChange()
         {
             int quarters = 0;
@@ -50,7 +50,7 @@ namespace Capstone.Models
             }
             CurrentBalance = remainingBalance;
             LogHistory("GIVE CHANGE", startingBalance, CurrentBalance);
-            return $"Here's your change:\n{quarters} quarter(s)\n{dimes} dime(s)\n{nickels} nickel(s)";
+            return $"\nHere's your change:\n{quarters} quarter(s)\n{dimes} dime(s)\n{nickels} nickel(s)\n";
             
         }
         

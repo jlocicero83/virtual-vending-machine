@@ -46,7 +46,7 @@ namespace CLI
                     Pause("");
                     return true;
                 case "2": // Select Item
-                    SetColor(ConsoleColor.DarkGreen);
+                    SetColor(ConsoleColor.Blue);
                     Console.WriteLine(ourVendingMachine.DisplayInventory());
                     ResetColor();
                     string selectedSlot;
@@ -75,7 +75,7 @@ namespace CLI
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
-            SetColor(ConsoleColor.Cyan);
+            SetColor(ConsoleColor.DarkRed);
             Console.WriteLine($"\nCurrent Money Provided: ${ourVendingMachine.CurrentBalance}\n");
             ResetColor();
         }
@@ -83,7 +83,7 @@ namespace CLI
         private void PrintHeader()
         {
             SetColor(ConsoleColor.DarkBlue);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Purchase Menu"));
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Purchase Menu"));            
             ResetColor();
         }
 

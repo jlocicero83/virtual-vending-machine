@@ -7,10 +7,10 @@ namespace Capstone.Models
     public class Product
     {
         //properties
-        public string Name { get; set; }
+        public string Name { get; }
         public decimal Price { get; }
 
-        public string Type { get; set; }
+        public string Type { get; }
         public int Quantity { get; set; }  
         
 

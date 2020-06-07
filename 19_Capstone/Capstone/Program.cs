@@ -11,6 +11,7 @@ namespace Capstone
         {
             // new vending machine
             VendingMachine ourVendingMachine = new VendingMachine();
+            
             // load inventory with file name
             ourVendingMachine.LoadInventory("vendingmachine.csv");
             

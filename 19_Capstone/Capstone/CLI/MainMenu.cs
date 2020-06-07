@@ -47,7 +47,7 @@ namespace CLI
                     Console.WriteLine();
 
                     // set color here? 
-                    SetColor(ConsoleColor.DarkGreen);
+                    SetColor(ConsoleColor.Blue);
                     Console.WriteLine("CURRENT INVENTORY");
                     Console.WriteLine("**********************");
                     Console.WriteLine(ourVendingMachine.DisplayInventory());
